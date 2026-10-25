@@ -1,0 +1,1 @@
+{"background_color":"#efe7d8","description":"詰将棋の学習用ボード。棋譜の貼り付け、盤面操作、詰み探索。","display":"standalone","icons":[{"purpose":"any","sizes":"any","src":"./icon.svg","type":"image/svg+xml"}],"lang":"ja","name":"詰将棋ボード","short_name":"詰将棋ボード","start_url":"./","theme_color":"#8a5a2b"}
