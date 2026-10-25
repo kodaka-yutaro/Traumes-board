@@ -1,0 +1,360 @@
+:root {
+  --board-bg: #f3d9a4;
+  --board-line: #9c6b30;
+  --accent: #8a5a2b;
+  --panel-bg: #faf6ee;
+  --text: #2b2118;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family:
+    "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", sans-serif;
+  color: var(--text);
+  background: #efe7d8;
+}
+
+#app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 8px 12px 24px;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 2px 8px;
+}
+
+.app-header h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.turn-indicator {
+  font-weight: bold;
+  color: var(--accent);
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (orientation: landscape) and (min-width: 760px) {
+  .main {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .panel {
+    flex: 1;
+    min-width: 280px;
+  }
+}
+
+.board-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+  margin: 0 auto;
+  width: min(94vw, calc(100dvh - 250px), 540px);
+  min-width: 300px;
+}
+
+@media (orientation: landscape) and (min-width: 760px) {
+  .board-column {
+    margin: 0;
+  }
+}
+
+/* ---- 持駒 ---- */
+.hand-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  min-height: 44px;
+  background: var(--panel-bg);
+  border: 1px solid #d8c9a8;
+  border-radius: 8px;
+  padding: 4px 8px;
+}
+
+.hand-label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.hand-none {
+  color: #998b74;
+  font-size: 13px;
+}
+
+.hand-piece {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 20px;
+  font-weight: bold;
+  min-width: 44px;
+  min-height: 40px;
+  border: 1px solid #c9b586;
+  border-radius: 6px;
+  background: #fff8e8;
+  color: var(--text);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.hand-piece.selected {
+  background: #ffd98a;
+  border-color: var(--accent);
+}
+
+/* ---- 盤 ---- */
+.board-wrap {
+  position: relative;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr) 20px;
+  grid-template-rows: 18px repeat(9, 1fr);
+  background: var(--board-bg);
+  border: 2px solid var(--board-line);
+  border-radius: 4px;
+  aspect-ratio: 10 / 9.6;
+  width: 100%;
+  user-select: none;
+}
+
+.coord {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: #6b4a1f;
+}
+
+.cell {
+  border: 1px solid var(--board-line);
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  touch-action: manipulation;
+  aspect-ratio: 1;
+}
+
+.cell.selected {
+  background: #ffe08a;
+}
+
+.cell.target {
+  background: #cfe8b8;
+}
+
+.cell.target::after {
+  content: "";
+}
+
+.piece {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-weight: bold;
+  font-size: clamp(16px, 4.6vw, 32px);
+  line-height: 1;
+  pointer-events: none;
+}
+
+@media (orientation: landscape) {
+  .piece {
+    font-size: clamp(16px, 6.4vh, 32px);
+  }
+}
+
+.piece.gote {
+  transform: rotate(180deg);
+}
+
+.piece.promoted {
+  color: #c0272d;
+}
+
+/* ---- 盤の下のボタン ---- */
+.board-controls {
+  display: flex;
+  gap: 8px;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+.board-controls button,
+.panel button {
+  min-height: 44px;
+  padding: 8px 14px;
+  font-size: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--accent);
+  background: #fffdf7;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.board-controls button {
+  flex: 1;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+button:not(:disabled):active {
+  background: #ffe9bd;
+}
+
+/* ---- 成り選択 ---- */
+.promote-dialog {
+  position: absolute;
+  inset: 0;
+  background: rgba(30, 20, 8, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 4px;
+  z-index: 5;
+}
+
+.promote-dialog[hidden] {
+  display: none;
+}
+
+.promote-title {
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.promote-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.promote-buttons button {
+  min-width: 120px;
+  min-height: 52px;
+  font-size: 17px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: 2px solid var(--accent);
+  background: #fff8e8;
+  cursor: pointer;
+}
+
+/* ---- パネル ---- */
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-section {
+  background: var(--panel-bg);
+  border: 1px solid #d8c9a8;
+  border-radius: 10px;
+  padding: 12px;
+}
+
+.panel-section h2 {
+  font-size: 15px;
+  margin: 0 0 8px;
+}
+
+.button-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.message {
+  margin: 8px 0 0;
+  font-size: 14px;
+  min-height: 1.2em;
+}
+
+.message.ok {
+  color: #2e7d32;
+}
+
+.message.error {
+  color: #c0272d;
+}
+
+.paste-panel {
+  margin-top: 8px;
+}
+
+.paste-panel textarea {
+  width: 100%;
+  font-family: monospace;
+  font-size: 13px;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #c9b586;
+  margin-bottom: 8px;
+}
+
+.solver-controls {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+
+.solver-controls label {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.solver-controls select {
+  font-size: 15px;
+  min-height: 40px;
+  border-radius: 6px;
+  padding: 4px 8px;
+}
+
+.solver-result {
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 8px 0 0;
+  word-break: break-all;
+}
+
+.sfen-display {
+  font-family: monospace;
+  font-size: 12px;
+  word-break: break-all;
+  margin: 0;
+  color: #6b5b43;
+}

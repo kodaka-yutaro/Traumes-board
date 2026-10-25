@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="64" fill="#f3d9a4"/>
+  <g stroke="#9c6b30" stroke-width="10">
+    <line x1="96" y1="96" x2="416" y2="96"/>
+    <line x1="96" y1="176" x2="416" y2="176"/>
+    <line x1="96" y1="256" x2="416" y2="256"/>
+    <line x1="96" y1="336" x2="416" y2="336"/>
+    <line x1="96" y1="416" x2="416" y2="416"/>
+    <line x1="96" y1="96" x2="96" y2="416"/>
+    <line x1="176" y1="96" x2="176" y2="416"/>
+    <line x1="256" y1="96" x2="256" y2="416"/>
+    <line x1="336" y1="96" x2="336" y2="416"/>
+    <line x1="416" y1="96" x2="416" y2="416"/>
+  </g>
+  <path d="M256 150 L326 226 L306 372 L206 372 L186 226 Z" fill="#fdf3d0" stroke="#8a5a2b" stroke-width="10"/>
+  <text x="256" y="330" font-size="130" text-anchor="middle" fill="#2b2118" font-family="Hiragino Mincho ProN, Yu Mincho, serif" font-weight="bold">詰</text>
+</svg>

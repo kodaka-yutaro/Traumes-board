@@ -1,0 +1,23 @@
+{
+  "name": "tsume-board",
+  "version": "0.1.0",
+  "description": "詰将棋学習用の最小Webアプリ: 棋譜貼り付け・盤面操作・盤反転・詰み探索",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tsshogi": "^2.3.4"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
+  }
+}
